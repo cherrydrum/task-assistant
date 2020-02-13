@@ -10,5 +10,5 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.abspath('task-ass
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
-# login_manager = LoginManager(app)
+login_manager = LoginManager(app)
 db = SQLAlchemy(app)
