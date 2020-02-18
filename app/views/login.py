@@ -1,11 +1,11 @@
-from models.users import Users
+from models import User
 import hashlib
 from app import *
 import time
 
 @login_manager.user_loader
 def load_user(login):
-    return Users.query.get(login)
+    return User.query.get(login)
 
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
@@ -16,10 +16,10 @@ def login():
 
         login = request.form['login']
         
-        if bool(Users.query.filter_by(login=login).first()):
+        if bool(User.query.filter_by(login=login).first()):
 
-            if Users.query.filter_by(login = login).first().password != None:
-                user = Users.query.filter_by(login=login).first()
+            if User.query.filter_by(login = login).first().password != None:
+                user = User.query.filter_by(login=login).first()
             else:
                 return redirect(url_for('register', login = login))
 

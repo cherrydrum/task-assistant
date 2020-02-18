@@ -1,6 +1,5 @@
 from app import *
-from models import users, tasks
-
+import models
 
 db.drop_all()
 db.create_all()

@@ -132,3 +132,5 @@ dmypy.json
 venv/
 .vscode/
 task-assistant.db
+shortcut.bat
+models_old

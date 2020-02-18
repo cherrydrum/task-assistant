@@ -1,4 +1,4 @@
-from models.users import *
+from models import User
 import hashlib
 from app import *
 
@@ -11,7 +11,7 @@ def register():
     if request.method == 'POST':
         login = request.form['login']
 
-        if bool(Users.query.filter_by(login = login).first()):
+        if bool(User.query.filter_by(login = login).first()):
             flash('Аккаунт уже существует', 'danger')
             
         elif len(login) < 2:
@@ -29,11 +29,12 @@ def register():
             
             else:
                 password = hashlib.sha224(password.encode('utf-8')).hexdigest()
-                new_user = Users(login, password)
+                # Здесь фляга падает — не обозначен __init__ у User
+                new_user = User(login, password)
                 db.session.add(new_user)
                 db.session.commit()
                 
-                user = Users.query.filter_by(login = login).first()
+                user = User.query.filter_by(login = login).first()
                 login_user(user, remember=True)
                 flash('Успешно', 'success')
                 return redirect(url_for('profile', login = login))
